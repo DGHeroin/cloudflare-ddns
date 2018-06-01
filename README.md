@@ -1,3 +1,4 @@
+```
 ./cloudflare-ddns -d domain -u mail -k cloudflare-key -z zones-id -i [new-IP|option] -x [domain id|option]
 -d domain          域名
 -u mail            CF用户名
@@ -5,7 +6,7 @@
 -z zones id        域名的zone id
 -i new IP          新指定的IP(可选参数, 未指定则自动去查询)
 -x domain id       子域名id(可选参数, 未指定则自动去CF查询)
-
+```
 ## all by command
 
 ```
