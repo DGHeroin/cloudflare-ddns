@@ -26,3 +26,15 @@ curl -X PUT "https://api.cloudflare.com/client/v4/zones/xx--zones_id-xx/dns_reco
      --data '{"type":"A","name":"xx-your-domain-xx","content":"xx--new_ip-xx","ttl":120,"proxied":false}'
 
 ```
+
+## mips32le 编译
+```
+git clone https://github.com/gomini/go-mips32.git
+cd go-mips32/src
+export GOOS=linux
+export GOARCH=mips32le
+./make.bash
+cd ..
+sudo mkdir /opt/mipsgo
+sudo cp -R * /opt/mipsgo
+```
