@@ -16,13 +16,15 @@ func die(msg string)  {
 }
 
 func GetMyIP() string {
-	res, _ := http.Get("https://api.ipify.org")
-	ip, _ := ioutil.ReadAll(res.Body)
+	res, err := http.Get("http://api.ipify.org")
+	if (err != nil) { die(err.Error())}
+	ip, err := ioutil.ReadAll(res.Body)
+	if (err != nil) { die(err.Error())}
 	return string(ip)
 }
 
 func GetDomainId(domain string, zones_id string, mail string, key string) string{
-	url := fmt.Sprintf("https://api.cloudflare.com/client/v4/zones/%s/dns_records?type=A&name=%s&page=1&per_page=20&order=type&direction=desc&match=all",
+	url := fmt.Sprintf("http://api.cloudflare.com/client/v4/zones/%s/dns_records?type=A&name=%s&page=1&per_page=20&order=type&direction=desc&match=all",
 		zones_id, domain)
 
 	req, _ := http.NewRequest("GET", url, nil)
@@ -63,7 +65,7 @@ func GetDomainId(domain string, zones_id string, mail string, key string) string
 }
 
 func UpdateDNS(domain string, ip string, zones_id string, domain_id string, mail string, key string) {
-	url := fmt.Sprintf("https://api.cloudflare.com/client/v4/zones/%s/dns_records/%s", zones_id, domain_id)
+	url := fmt.Sprintf("http://api.cloudflare.com/client/v4/zones/%s/dns_records/%s", zones_id, domain_id)
 	post_body := fmt.Sprintf("{\"type\":\"A\",\"name\":\"%s\",\"content\":\"%s\",\"ttl\":120,\"proxied\":false}", domain, ip)
 
 	req, _ := http.NewRequest("PUT", url, bytes.NewBuffer([]byte(post_body)))
